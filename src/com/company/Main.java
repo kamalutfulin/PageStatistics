@@ -36,7 +36,13 @@ public class Main {
             readr.close();
             writer.close();
             System.out.println("Загрузка завершена");
+
             System.out.println("Запускаем анализ html страницы ...");
+            try {
+                Thread.sleep(5000); // для большей атмосферности :)
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             for (Map.Entry<String, Integer> entry : toAnalyze().entrySet()) {
                 String key = entry.getKey();
@@ -56,15 +62,30 @@ public class Main {
 
     public static HashMap<String, Integer> toAnalyze() {
         HashMap<Character, Character> separators = new HashMap<>();
+        separators.put('1', '1');
+        separators.put('2', '2');
+        separators.put('3', '3');
+        separators.put('4', '4');
+        separators.put('5', '5');
+        separators.put('6', '6');
+        separators.put('7', '7');
+        separators.put('8', '8');
+        separators.put('9', '9');
+        separators.put('0', '0');
         separators.put(' ', ' ');
         separators.put(',', ',');
         separators.put('.', '.');
         separators.put('!', '!');
+        separators.put('©', '©');
+        separators.put('^', '^');
+        separators.put('~', '~');
+        separators.put('%', '%');
         separators.put('?', '?');
         separators.put('<', '<');
         separators.put('>', '>');
         separators.put('+', '+');
         separators.put('-', '-');
+        separators.put('—', '—');
         separators.put('=', '=');
         separators.put('"', '"');
         separators.put('{', '{');
@@ -74,6 +95,9 @@ public class Main {
         separators.put('#', '#');
         separators.put('/', '/');
         separators.put('\\', '\\');
+        separators.put('\n', '\n');
+        separators.put('\r', '\r');
+        separators.put('\t', '\t');
         separators.put('_', '_');
         separators.put('$', '$');
         separators.put('&', '&');
@@ -86,7 +110,6 @@ public class Main {
         separators.put(']', ']');
         separators.put('(', '(');
         separators.put(')', ')');
-        //ArrayList<String> words = new ArrayList<>();
         HashMap<String, Integer> words = new HashMap<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader("Download.html"));
@@ -100,15 +123,15 @@ public class Main {
 
                     }
                     if (separators.containsKey((char) c) != true) {
-                        if ((char)c != ' '){
+
 
                         stringBuilder.append((char) c);
-                        }
+
 
                     } else if (separators.containsKey((char) c) == true) {
                         if (words.containsKey(stringBuilder.toString()) == true) {
                             words.put(stringBuilder.toString(), words.get(stringBuilder.toString()) + 1);
-                        } else if (words.containsKey(stringBuilder) != true && stringBuilder.length() >0) {
+                        } else if (words.containsKey(stringBuilder) != true && stringBuilder.length() > 0) {
 
                             words.put(stringBuilder.toString(), 1);
                             stringBuilder.setLength(0);
